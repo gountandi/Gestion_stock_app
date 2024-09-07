@@ -17,7 +17,7 @@ class update_after_supply_trigger extends Migration
             update 'produits' set qte_stock=qte_stock+qte_achat where id=NEW.id;
         END;
 
-        ")
+        ");
     }
 
     /**
