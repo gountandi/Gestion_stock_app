@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fournisseurs', function (Blueprint $table) {
+        Schema::create('ligne_approvisionements', function (Blueprint $table) {
             $table->id();
-            $table->integer('personne_id');
-            $table->foreign('personne_id')->references('id')->on('personnes');
             $table->timestamps();
-
         });
     }
 
@@ -25,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fournisseurs');
+        Schema::dropIfExists('ligne_approvisionements');
     }
 };

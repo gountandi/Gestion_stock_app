@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 
 
 class Produit extends Model
@@ -17,7 +19,7 @@ class Produit extends Model
         'prix_unitaire',
         'qte_stock',
         'marque',
-        'categorie',
+        'categorie_id',
     ];
 
     public function lignescomandes(): HasMany {
@@ -30,5 +32,10 @@ class Produit extends Model
 
         return $this->hasMany(LigneApprovisionement::class);
 
+    }
+
+    public function categorie(): BelongsTo
+    {
+        return $this->belongsTo(Categorie::class);
     }
 }

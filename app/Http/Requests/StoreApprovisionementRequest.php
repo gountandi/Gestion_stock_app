@@ -11,7 +11,7 @@ class StoreApprovisionementRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class StoreApprovisionementRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'fournisseur' => 'required',
+            'montant' => 'required',
+            'date_cmd' => 'required',
+
         ];
     }
 }

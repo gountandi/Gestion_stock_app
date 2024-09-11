@@ -6,6 +6,8 @@ use App\Http\Requests\StoreProduitRequest;
 use App\Http\Requests\UpdateProduitRequest;
 use Illuminate\Http\Request;
 use App\Models\Produit;
+use App\Models\Categorie;
+
 
 class ProduitController extends Controller
 {
@@ -36,7 +38,8 @@ class ProduitController extends Controller
      */
     public function create()
     {
-        return view('produits.create');
+        $category=Categorie::all();
+        return view('produits.create',compact('category'));
 
     }
 
@@ -45,17 +48,12 @@ class ProduitController extends Controller
      */
     public function store(StoreProduitRequest $request)
     {
-        $validated_data=$request->validate([
-            'libelle' => 'required|max:255',
-            'prix_unitaire' => 'required',
-            'qte_stock' => 'required',
-            'marque'=>'required',
-            'categorie'=>'required',
 
+        $categories_ids=$request->input(("categories_ids"));
 
-
-        ]);
-
+        for($i=0;$i<count($categories);$i++){
+            $category=$categories_ids[$i];
+        }
 
          //Generer l'image
          $image_produit=$request->file("image");
@@ -67,11 +65,16 @@ class ProduitController extends Controller
          $image_produit->storeAs("public/produits", $nom_image);
 
          //changer le chemin de l'image
-         $data=$validated_data;
+         $data=(['libelle'=>$request->input('libelle'),
+         'prix'=>$request->input('prix'),
+         'qte_stock'=>$request->input('qte_stock'),
+         'marque'=>$request->input('marque'),
+         'categorie_id'=>$request->input('categorie_id'),]);
+
          $data["image"]=$nom_image;
 
          //dd($data);
-
+         dd($data);
          Produit::create($data);
 
          return redirect()->route('produits.index');
@@ -99,15 +102,6 @@ class ProduitController extends Controller
      */
     public function update(UpdateProduitRequest $request, Produit $produit)
     {
-        $validated_data=$request->validate([
-            'libelle' => 'required|max:255',
-            'prix_unitaire' => 'required',
-            'qte_stock' => 'required',
-            'marque'=>'required',
-            'categorie'=>'required',
-
-
-          ]);
 
         /*
 
@@ -128,7 +122,7 @@ class ProduitController extends Controller
           $data=$validated_data;
           $data["image"]=$nom_image;
         */
-        $produit->update($validated_data);
+        $produit->update($request->all());
         return redirect()->route('produits.index');
     }
 

@@ -36,9 +36,11 @@
                                 </select>
 
                             </div>
+                        </div>
+
                             <div class="space-y-2 w-1/3">
                                 <label for="">*Quantite</label>
-                                <input type="number" name="quantite" id="quantite_id" class="border-gray-300 rounded-md w-full">
+                                <input type="number" name="quantite" id="quantite_id" class="border-gray-300 rounded-md w-full" min="0">
                             </div>
                             <div>
                                 <button class="mt-6 bg-blue-600 hover:bg-blue-500 text-white text-sm px-3 py-2 rounded-md" type="button" id="btn_ajouter">+</button>

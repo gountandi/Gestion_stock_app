@@ -19,11 +19,10 @@ return new class extends Migration
             $table->bigInteger("prod_id");
             $table->bigInteger("cmd_id");
             $table->foreign("prod_id")->references("id")->on("produits");
-            $table->foreign("cmd_id")->references("id")->on("commandes");
-        });
+            $table->foreign("cmd_id")->references("id")->on("commandes");        });
     }
 
-    /*cmd_id
+    /**
      * Reverse the migrations.
      */
     public function down(): void

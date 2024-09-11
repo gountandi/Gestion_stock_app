@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateApprovisionementRequest;
 use App\Models\Approvisionement;
 use Illuminate\Http\Request;
 use App\Models\Produit;
+use App\Models\Fournisseur;
 
 
 class ApprovisionementController extends Controller
@@ -36,8 +37,9 @@ class ApprovisionementController extends Controller
      */
     public function create()
     {
+        $fournisseur=Fournisseur::all();
         $produit=Produit::all();
-        return view('approvisionements.create',compact('produit'));
+        return view('approvisionements.create',compact('produit','fournisseur'));
     }
 
     /**
@@ -45,13 +47,7 @@ class ApprovisionementController extends Controller
      */
     public function store(StoreApprovisionementRequest $request)
     {
-        $request->validate([
-            'fournisseur' => 'required',
-            'montant' => 'required',
-            'date_cmd' => 'required',
 
-
-          ]);
 
         $fournisseur=$request->input("fournisseur");
         $gerant=Auth::user();
@@ -68,7 +64,7 @@ class ApprovisionementController extends Controller
             $quantite=$quantites[$i];
 
             LigneApprovisionement::create([
-                "quantite"=>$quantite,
+                "qte_achat"=>$quantite,
                 "prod_id"=>$produit,
             ]);
 
@@ -98,7 +94,8 @@ class ApprovisionementController extends Controller
      */
     public function update(UpdateApprovisionementRequest $request, Approvisionement $approvisionement)
     {
-        //
+        $approvisionement->update($request->all());
+        return redirect()->route('approvisionements.edit');
     }
 
     /**

@@ -22,7 +22,11 @@ class UpdateProduitRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'libelle' => 'required|max:255',
+            'prix_unitaire' => 'required',
+            'qte_stock' => 'required',
+            'marque'=>'required',
+            'categorie_id'=>'required',
         ];
     }
 }

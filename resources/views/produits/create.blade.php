@@ -30,7 +30,7 @@
                         <div class="flex space-x-3 items-center">
                             <div class="space-y-2 w-1/3">
                                 <label for="produit">Quantité</label>
-                                <input type="number" name="qte_stock" id="qte_stock" value="{{old('qte_stock')}}" class="border-gray-300 rounded-md w-full">
+                                <input type="number" name="qte_stock" id="qte_stock" value="{{old('qte_stock')}}" class="border-gray-300 rounded-md w-full" min="1">
                             </div>
                         </div>
                         <div class="flex space-x-3 items-center">
@@ -41,10 +41,15 @@
                         </div>
                         <div class="flex space-x-3 items-center">
                             <div class="space-y-2 w-1/3">
-                                <label for="produit">Categorie</label>
-                                <input type="text" name="categorie" id="categorie" value="{{old('categorie')}}" class="border-gray-300 rounded-md w-full">
+                                <label for="categorie">Categorie</label>
+                                <select name="categorie" id="categorie_id" class="border-gray-300 rounded-md w-full">
+                                <option value="Sélectioné"></option>
+                                @foreach($category as $cat)
+                                <option value="{{$cat}}">{{$cat->nom}}</option>
+                                @endforeach
+                                </select>
+
                             </div>
-                        </div>
                         <div class="flex space-x-3 items-center">
                             <div class="space-y-2 w-1/3">
                                 <label for="inputImage" class="form-label">Image</label>

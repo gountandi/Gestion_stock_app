@@ -34,7 +34,7 @@
                         <div class="flex space-x-3 items-center">
                             <div class="space-y-2 w-1/3">
                                 <label for="produit">Quantité</label>
-                                <input type="number" name="qte_stock" id="qte_stock" class="border-gray-300 rounded-md w-full"  value="{{ old('qte_stock')??$produit->qte_stock}}">
+                                <input type="number" name="qte_stock" id="qte_stock" class="border-gray-300 rounded-md w-full"  value="{{ old('qte_stock')??$produit->qte_stock}}" min="1">
 
                             </div>
                         </div>

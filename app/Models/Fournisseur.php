@@ -11,6 +11,11 @@ class Fournisseur extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'nom',
+        'tel',
+    ];
+
     public function personne(): HasOne
     {
         return $this->hasOne(Personne::class);

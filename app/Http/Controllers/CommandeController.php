@@ -7,6 +7,8 @@ use App\Http\Requests\UpdateCommandeRequest;
 use App\Models\Commande;
 use Illuminate\Http\Request;
 use App\Models\Produit;
+use App\Models\Client;
+
 
 
 
@@ -40,7 +42,8 @@ class CommandeController extends Controller
     public function create()
     {
         $produit=Produit::all();
-        return view('commandes.create',compact('produit'));
+        $client=Client::all();
+        return view('commandes.create',compact('produit','client'));
     }
 
     /**
@@ -48,13 +51,7 @@ class CommandeController extends Controller
      */
     public function store(StoreCommandeRequest $request)
     {
-        $request->validate([
-            'client' => 'required',
-            'montant' => 'required',
-            'date_cmd' => 'required',
 
-
-          ]);
         //Commande::create($request->all());
 
         $client=$request->input("cilent");
@@ -74,6 +71,7 @@ class CommandeController extends Controller
             LigneCommande::create([
                 "quantite"=>$quantite,
                 "prod_id"=>$produit,
+
             ]);
 
         }
@@ -101,7 +99,8 @@ class CommandeController extends Controller
      */
     public function update(UpdateCommandeRequest $request, Commande $commande)
     {
-        //
+        $commande->update($request);
+        return redirect()->route('commandes.edit');
     }
 
     /**

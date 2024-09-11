@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StorePersonneRequest;
-use App\Http\Requests\UpdatePersonneRequest;
-use App\Models\Personne;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
+use App\Models\User;
 
-class PersonneController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class PersonneController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePersonneRequest $request)
+    public function store(StoreUserRequest $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class PersonneController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Personne $personne)
+    public function show(User $user)
     {
         //
     }
@@ -43,7 +43,7 @@ class PersonneController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Personne $personne)
+    public function edit(User $user)
     {
         //
     }
@@ -51,7 +51,7 @@ class PersonneController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePersonneRequest $request, Personne $personne)
+    public function update(UpdateUserRequest $request, User $user)
     {
         //
     }
@@ -59,7 +59,7 @@ class PersonneController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Personne $personne)
+    public function destroy(User $user)
     {
         //
     }

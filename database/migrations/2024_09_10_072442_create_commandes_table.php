@@ -16,11 +16,10 @@ return new class extends Migration
             $table->date('date_cmd');
             $table->integer('montant_total');
             $table->timestamps();
-            $table->integer('personne_id');
-            $table->foreign('personne_id')->references('id')->on('personnes');
+            $table->integer('client_id');
+            $table->foreign('client_id')->references('id')->on('clients');
             $table->integer('vendeur_id');
-            $table->foreign('vendeur_id')->references('id')->on('users');
-        });
+            $table->foreign('vendeur_id')->references('id')->on('users');});
     }
 
     /**
