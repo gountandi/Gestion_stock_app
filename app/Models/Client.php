@@ -13,8 +13,6 @@ class Client extends Model
 
     protected $fillable = [
         'nom',
-        'prenom',
-        'date_naiss',
         'tel',
     ];
 /*

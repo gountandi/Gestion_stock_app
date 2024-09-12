@@ -11,6 +11,10 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Spatie\Permission\Traits\HasRoles;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
 
 class User extends Authenticatable
 {
@@ -19,6 +23,7 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -29,6 +34,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        //'client_id'
     ];
 
     /**
@@ -69,10 +75,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(Commande::class);
     }
-/*
-    public function client(): HasOne
+
+    /*public function client(): HasOne
     {
         return $this->hasOne(Client::class);
-    }
-        */
+    }*/
+
+
+
+
 }

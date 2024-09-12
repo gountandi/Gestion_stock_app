@@ -30,8 +30,6 @@
                     <table class="w-full text-left">
                         <thead class="text-lg font-semibold bg-gray-300">
                             <th class="py-3 px-6">Nom</th>
-                            <th class="py-3 px-6">Prenom</th>
-                            <th class="py-3 px-6">DateNaiss</th>
                             <th class="py-3 px-6">Tel</th>
                             <th class="py-3 px-6">Actions</th>
                         </thead>
@@ -40,12 +38,6 @@
                             <tr class="bg-gray-100">
                                  <td class="py-3 px-6">
                                 {{$client->nom}}
-                                </td>
-                                <td class="py-3 px-6">
-                                {{$client->prenom}}
-                                </td>
-                                <td class="py-3 px-6">
-                                {{$client->date_naiss}}
                                 </td>
                                 <td class="py-3 px-6">
                                 {{$client->tel}}

@@ -49,11 +49,11 @@ class ProduitController extends Controller
     public function store(StoreProduitRequest $request)
     {
 
-        $categories_ids=$request->input(("categories_ids"));
+        /*$categories_ids=$request->input(("categories_ids"));
 
         for($i=0;$i<count($categories);$i++){
             $category=$categories_ids[$i];
-        }
+        }*/
 
          //Generer l'image
          $image_produit=$request->file("image");
@@ -66,15 +66,15 @@ class ProduitController extends Controller
 
          //changer le chemin de l'image
          $data=(['libelle'=>$request->input('libelle'),
-         'prix'=>$request->input('prix'),
+         'prix_unitaire'=>$request->input('prix_unitaire'),
          'qte_stock'=>$request->input('qte_stock'),
          'marque'=>$request->input('marque'),
-         'categorie_id'=>$request->input('categorie_id'),]);
+         'categorie_id'=>$request->input('categorie_id')]);
 
          $data["image"]=$nom_image;
 
          //dd($data);
-         dd($data);
+         //dd($data);
          Produit::create($data);
 
          return redirect()->route('produits.index');

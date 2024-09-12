@@ -23,8 +23,6 @@ class UpdateClientRequest extends FormRequest
     {
         return [
            'nom'=> 'required',
-           'prenom'=> 'required',
-           'date_naiss'=> 'required',
            'tel'=> 'required',
         ];
     }

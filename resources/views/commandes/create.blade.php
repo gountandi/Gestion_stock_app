@@ -22,10 +22,10 @@
                         <div class="flex space-x-3 items-center">
                             <div class="space-y-2 w-1/3">
                                 <label for="">Client</label>
-                                <select name="client" id="client_id" class="border-gray-300 rounded-md w-full">
+                                <select name="client_id" id="client_id" class="border-gray-300 rounded-md w-full">
                                 <option value="Sélectioné"></option>
                                 @foreach($client as $cli)
-                                <option value="{{$cli}}">{{$cli->libelle}}</option>
+                                <option value="{{$cli->id}}">{{$cli->nom}}</option>
                                 @endforeach
                                 </select>
 

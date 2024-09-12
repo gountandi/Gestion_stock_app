@@ -56,7 +56,7 @@
                                     {{$produit->marque}}
                                 </td>
                                 <td class="py-3 px-6">
-                                    {{$produit->categorie}}
+                                    {{$produit->categorie->nom}}
                                 </td>
                                 <td class="py-3 px-6">
                                     <a href="{{route('produits.edit',$produit)}}">

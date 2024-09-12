@@ -19,7 +19,9 @@ return new class extends Migration
             $table->integer('client_id');
             $table->foreign('client_id')->references('id')->on('clients');
             $table->integer('vendeur_id');
-            $table->foreign('vendeur_id')->references('id')->on('users');});
+            $table->foreign('vendeur_id')->references('id')->on('users');
+        });
+
     }
 
     /**

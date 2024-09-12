@@ -22,7 +22,7 @@
                         <div class="flex space-x-3 items-center">
                             <div class="space-y-2 w-1/3">
                                 <label for="">Fournisseur</label>
-                                <select name="fournisseur" id="fournisseur_id" class="border-gray-300 rounded-md w-full">
+                                <select name="fournisseur_id" id="fournisseur_id" class="border-gray-300 rounded-md w-full">
                                 <option value="Sélectioné"></option>
                                 @foreach($fournisseur as $four)
                                 <option value="{{$four}}">{{$four->libelle}}</option>

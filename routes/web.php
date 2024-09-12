@@ -33,3 +33,12 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+/*
+Route::group(['middleware'=>['role:gerant']],function(){
+    Route::get('/gerant-dasbord', [DashboardController::class,'index']->name('gerant.dashboard'));
+});
+
+Route::group(['middleware'=>['role:vendeur']],function(){
+    Route::get('/vendeur-dashboard', [DashboardController::class,'vendeur']->name('vendeur.dashboard'));
+});*/
+

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('prix_unitaire');
             $table->string('marque');
             $table->integer('categorie_id');
-            $table->foreign('categorie_id')->references('categories');
+            $table->foreign('categorie_id')->references('id')->on('categories');
             $table->timestamps();
         });
     }

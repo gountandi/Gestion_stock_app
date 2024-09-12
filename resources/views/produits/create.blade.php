@@ -42,14 +42,16 @@
                         <div class="flex space-x-3 items-center">
                             <div class="space-y-2 w-1/3">
                                 <label for="categorie">Categorie</label>
-                                <select name="categorie" id="categorie_id" class="border-gray-300 rounded-md w-full">
+                                <select name="categorie_id" id="categorie_id" class="border-gray-300 rounded-md w-full">
                                 <option value="Sélectioné"></option>
                                 @foreach($category as $cat)
-                                <option value="{{$cat}}">{{$cat->nom}}</option>
+                                <option value="{{$cat->id}}">{{$cat->nom}}</option>
                                 @endforeach
                                 </select>
 
                             </div>
+                        </div>
+
                         <div class="flex space-x-3 items-center">
                             <div class="space-y-2 w-1/3">
                                 <label for="inputImage" class="form-label">Image</label>

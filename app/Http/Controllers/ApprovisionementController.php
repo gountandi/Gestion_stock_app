@@ -49,7 +49,7 @@ class ApprovisionementController extends Controller
     {
 
 
-        $fournisseur=$request->input("fournisseur");
+        $fournisseur=$request->input("fournisseur_id");
         $gerant=Auth::user();
         $produits_ids=$request->input(("produits_ids"));
         $qte_achat=$request->input("qte_achat");

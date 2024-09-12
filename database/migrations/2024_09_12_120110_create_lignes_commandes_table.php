@@ -21,7 +21,6 @@ return new class extends Migration
             $table->foreign("prod_id")->references("id")->on("produits");
             $table->foreign("cmd_id")->references("id")->on("commandes");        });
     }
-
     /**
      * Reverse the migrations.
      */

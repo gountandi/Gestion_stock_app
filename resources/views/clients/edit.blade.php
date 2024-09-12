@@ -25,18 +25,6 @@
                                 <input type="text" name="nom" id="nom" class="border-gray-300 rounded-md w-full" value="{{ old('nom')??$client->nom}}">
 
                             </div>
-                            <div class="space-y-2 w-1/3">
-                                <label for="user">Prenom</label>
-                                <input type="text" name="prenom" id="prenom" class="border-gray-300 rounded-md w-full" value="{{ old('prenom')??$client->prenom}}" >
-
-                            </div>
-                        </div>
-                        <div class="flex space-x-3 items-center">
-                            <div class="space-y-2 w-1/3">
-                                <label for="client">DateNaiss</label>
-                                <input type="date" name="date_naiss" id="date_naiss" class="border-gray-300 rounded-md w-full"  value="{{ old('date_naiss')??$client->date_naiss}}">
-
-                            </div>
                         </div>
                         <div class="flex space-x-3 items-center">
                             <div class="space-y-2 w-1/3">

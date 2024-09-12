@@ -54,7 +54,7 @@ class CommandeController extends Controller
 
         //Commande::create($request->all());
 
-        $client=$request->input("cilent");
+        $client=$request->input("cilent_id");
         $vendeur=Auth::user();
         $produits_ids=$request->input(("produits_ids"));
         $qte_ligne=$request->input("qte_ligne");
