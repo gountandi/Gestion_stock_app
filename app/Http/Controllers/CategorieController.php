@@ -41,7 +41,7 @@ class CategorieController extends Controller
      */
     public function store(StoreCategorieRequest $request)
     {
-        $categorie=Categorie::create(['nom'=>$request->input('nom')]);
+        $categorie=Categorie::create(['nom'=>$request->input('nom')] );
         return redirect()->route('categories.index');
     }
 

@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
+
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\FournisseurController;
 use App\Http\Controllers\ApprovisionementController;
@@ -21,7 +24,7 @@ Route::resource('approvisionements', ApprovisionementController::class);
 
 
 
-//Route::get("/commandes/{commande}/facture",[CommandeController::class,'generer_facture'])->name('generer_facture');
+Route::get("/commandes/{commande}/facture",[CommandeController::class,'generer_facture'])->name('generer_facture');
 
 
 Route::middleware([
@@ -33,12 +36,14 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
-/*
-Route::group(['middleware'=>['role:gerant']],function(){
-    Route::get('/gerant-dasbord', [DashboardController::class,'index']->name('gerant.dashboard'));
+
+Route::group(['middleware' => ['auth']], function() {
+    Route::resource('roles', RoleController::class);
+    Route::resource('users', UserController::class);
 });
 
-Route::group(['middleware'=>['role:vendeur']],function(){
-    Route::get('/vendeur-dashboard', [DashboardController::class,'vendeur']->name('vendeur.dashboard'));
-});*/
+Route::middleware(['auth'])->group(function () {
+    Route::get('/roles', [RoleController::class, 'index']);
+    // Other routes
+});
 

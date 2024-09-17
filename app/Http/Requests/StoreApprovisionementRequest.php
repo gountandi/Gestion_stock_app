@@ -22,9 +22,10 @@ class StoreApprovisionementRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'fournisseur' => 'required',
-            'montant' => 'required',
-            'date_cmd' => 'required',
+            //'gerant_id' => 'required',
+            //'fournisseur_id' => 'required',
+            //'prix_achat_unitaire' => 'required',
+            //'date_livraison' => 'required',
 
         ];
     }

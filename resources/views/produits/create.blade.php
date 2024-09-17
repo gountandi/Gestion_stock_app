@@ -1,4 +1,5 @@
-<x-app-layout>
+@extends('layouts.base')
+@section('content')
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Produits') }}
@@ -24,7 +25,7 @@
                             </div>
                             <div class="space-y-2 w-1/3">
                                 <label for="user">Prix</label>
-                                <input type="number" name="prix_unitaire" id="prix_unitaire" value="{{old('prix_unitaire')}}" class="border-gray-300 rounded-md w-full">
+                                <input type="number" name="prix_unitaire" id="prix_unitaire" value="{{old('prix_unitaire')}}" class="border-gray-300 rounded-md w-full" min="0">
                             </div>
                         </div>
                         <div class="flex space-x-3 items-center">
@@ -42,7 +43,7 @@
                         <div class="flex space-x-3 items-center">
                             <div class="space-y-2 w-1/3">
                                 <label for="categorie">Categorie</label>
-                                <select name="categorie_id" id="categorie_id" class="border-gray-300 rounded-md w-full">
+                                <select name="categorie_id" id="categorie_id" class="categorie1 border-gray-300 rounded-md w-full">
                                 <option value="Sélectioné"></option>
                                 @foreach($category as $cat)
                                 <option value="{{$cat->id}}">{{$cat->nom}}</option>
@@ -73,5 +74,5 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+@endsection
 

@@ -17,13 +17,16 @@ class LigneCommande extends Model
         'cmd_id',
     ];
 
+    protected $table = 'lignes_commandes';
+
+
     public function commande(): BelongsTo
     {
-        return $this->belongsTo(Commande::class);
+        return $this->belongsTo(Commande::class,'cmd_id');
     }
 
     public function produit(): BelongsTo
     {
-        return $this->belongsTo(Produit::class);
+        return $this->belongsTo(Produit::class,'prod_id');
     }
 }

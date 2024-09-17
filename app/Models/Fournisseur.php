@@ -16,13 +16,10 @@ class Fournisseur extends Model
         'tel',
     ];
 
-    public function personne(): HasOne
-    {
-        return $this->hasOne(Personne::class);
-    }
+
     public function approvisionements(): HasMany {
 
-        return $this->hasMany(Approvisionement::class, "fournisseur_id");
+        return $this->hasMany(Approvisionement::class);
 
     }
 }

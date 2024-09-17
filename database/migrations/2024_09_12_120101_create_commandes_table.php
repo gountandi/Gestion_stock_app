@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('commandes', function (Blueprint $table) {
             $table->id();
-            $table->date('date_cmd');
-            $table->integer('montant_total');
+            $table->date('date_cmd')->default("now");;
+            $table->integer('montant_total')->default(0);;
             $table->timestamps();
             $table->integer('client_id');
-            $table->foreign('client_id')->references('id')->on('clients');
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
             $table->integer('vendeur_id');
             $table->foreign('vendeur_id')->references('id')->on('users');
         });

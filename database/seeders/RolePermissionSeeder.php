@@ -19,7 +19,7 @@ class RolePermissionSeeder extends Seeder
         //roles
         $roleGerant=Role::create(['name'=>'gerant']);
         $roleVendeur=Role::create(['name'=>'vendeur']);
-
+        /*
         //permissions
         Permission::create(['name'=>'Enregistrer une commande']);
         Permission::create(['name'=>'Enregistrer un client']);
@@ -32,13 +32,13 @@ class RolePermissionSeeder extends Seeder
         $roleGerant->givePermissionTo('Enregistrer une commande');
         $roleGerant->givePermissionTo('Enregistrer un fournisseur');
         $roleGerant->givePermissionTo('Enregistrer un client');
-        $roleGerant->givePermissionTo('Ajouter une categorie');
+        $roleGerant->givePermissionTo('AjouterUneCategorie');
         $roleGerant->givePermissionTo('Ajouter Produits');
         $roleGerant->givePermissionTo('Approvissioner');
 
         $roleVendeur->givePermissionTo('Enregistrer une commande');
         $roleVendeur->givePermissionTo('Enregistrer un client');
-
+        */
 
 
     }

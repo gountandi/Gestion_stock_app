@@ -1,4 +1,5 @@
-<x-app-layout>
+@extends('layouts.base')
+@section('content')
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Produits') }}
@@ -27,7 +28,7 @@
                             </div>
                             <div class="space-y-2 w-1/3">
                                 <label for="user">Prix</label>
-                                <input type="number" name="prix_unitaire" id="prix_unitaire" class="border-gray-300 rounded-md w-full" value="{{ old('prix_unitaire')??$produit->prix_unitaire}}" >
+                                <input type="number" name="prix_unitaire" id="prix_unitaire" class="border-gray-300 rounded-md w-full" value="{{ old('prix_unitaire')??$produit->prix_unitaire}}" min="0">
 
                             </div>
                         </div>
@@ -68,9 +69,10 @@
                         </button>
                     </div>
                 </form>
+                @if($errors->any())
+                {{ implode('', $errors->all('<div>:message</div>')) }}
                </div>
             </div>
         </div>
     </div>
-</x-app-layout>
-
+@endsection

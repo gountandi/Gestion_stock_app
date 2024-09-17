@@ -8,6 +8,8 @@ use App\Models\Approvisionement;
 use Illuminate\Http\Request;
 use App\Models\Produit;
 use App\Models\Fournisseur;
+use Illuminate\Support\Facades\Auth;
+
 
 
 class ApprovisionementController extends Controller
@@ -18,12 +20,21 @@ class ApprovisionementController extends Controller
     public function index(Request $request)
     {
         $search_value=$request->input("search");
+        $search_value1=$request->input("search1");
+
+        $produitss_ids=Produit::where('nom',$search_value)->pluck('id');
+        $fournisseurs_ids=Fournisseur::where('nom',$search_value)->pluck('id');
+
 
         $pagination_number=5;
          if ($search_value){
-             $approvisionements = Approvisionement::where("produit", "like", "%".$search_value. "%")
-             ->orWhere("prix_achat_unitaire", $search_value)
+             $approvisionements = Approvisionement::whereIn("produit_id",$produitss_ids)
              ->paginate($pagination_number);
+        }
+        elseif($fournisseurs_ids) {
+            $approvisionements = Approvisionement::whereIn("fournisseur_id",$fournisseurs_ids)
+            ->paginate($pagination_number);
+
         }
         else{
              $approvisionements = Approvisionement::paginate($pagination_number);
@@ -49,26 +60,29 @@ class ApprovisionementController extends Controller
     {
 
 
-        $fournisseur=$request->input("fournisseur_id");
         $gerant=Auth::user();
-        $produits_ids=$request->input(("produits_ids"));
-        $qte_achat=$request->input("qte_achat");
+        $produit_ids=$request->input("produit_ids");
+        $quantites=$request->input("quantites");
 
-        Approvisionement::create([
-            "fournisseur"=>$fournisseur,
+        dd($request->all());
+        $Approvisionement=Approvisionement::create([
+            'fournisseur_id'=>$request->input("fournisseur_id"),
             "gerant_id"=>$gerant->id,
+            "prix_achat_unitaire"=>$request->input("prix_achat_id"),
         ]);
 
-        for($i=0;$i<count($produits_ids);$i++){
-            $produit=$produits_ids[$i];
+        for($i=0;$i<count($produit_ids);$i++){
+            $produit=$produit_ids[$i];
             $quantite=$quantites[$i];
 
             LigneApprovisionement::create([
                 "qte_achat"=>$quantite,
                 "prod_id"=>$produit,
+                "apprivisionement_id"=>$approvisionement->id,
             ]);
 
         }
+        return redirect()->route("approvisionements.index");
     }
 
     /**
@@ -95,7 +109,7 @@ class ApprovisionementController extends Controller
     public function update(UpdateApprovisionementRequest $request, Approvisionement $approvisionement)
     {
         $approvisionement->update($request->all());
-        return redirect()->route('approvisionements.edit');
+        return redirect()->route('approvisionements.index');
     }
 
     /**

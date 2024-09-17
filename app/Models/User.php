@@ -34,7 +34,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        //'client_id'
+        'client_id'
     ];
 
     /**
@@ -76,10 +76,10 @@ class User extends Authenticatable
         return $this->hasMany(Commande::class);
     }
 
-    /*public function client(): HasOne
+      public function client(): BelongsTo
     {
-        return $this->hasOne(Client::class);
-    }*/
+        return $this->belongsTo(Client::class, 'client_id');
+    }
 
 
 

@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCommandeRequest;
 use App\Http\Requests\UpdateCommandeRequest;
 use App\Models\Commande;
+use App\Models\LigneCommande;
 use Illuminate\Http\Request;
 use App\Models\Produit;
 use App\Models\Client;
+use Illuminate\Support\Facades\Auth;
+use Ismaelw\LaraTeX\LaraTeX;
+
 
 
 
@@ -21,14 +25,21 @@ class CommandeController extends Controller
     public function index(Request $request)
     {
         $search_value=$request->input("search");
+        $search_value1=$request->input("search1");
+        $clients_ids=Client::where('nom',$search_value1)->pluck('id');
+
 
         $pagination_number=5;
          if ($search_value){
-             $commandes = Commande::where("client", "like", "%".$search_value. "%")
+             $commandes = Commande::where("montant_total", "like", "%".$search_value. "%")
              ->orWhere("date_cmd", $search_value)
-             ->orWhere("montant", $search_value)
+             ->orWhere("client_id", $search_value)
              ->paginate($pagination_number);
         }
+        elseif ($search_value1){
+            $commandes = Commande::whereIn('client_id',$clients_ids)
+            ->paginate($pagination_number);
+       }
         else{
              $commandes = Commande::paginate($pagination_number);
 
@@ -43,6 +54,7 @@ class CommandeController extends Controller
     {
         $produit=Produit::all();
         $client=Client::all();
+
         return view('commandes.create',compact('produit','client'));
     }
 
@@ -53,28 +65,55 @@ class CommandeController extends Controller
     {
 
         //Commande::create($request->all());
+        $search_value3=$request->input("search2");
+        //$categorie=DB::table('categories')->select('categories.id')->where ('nom',$search_value);
+        //dd($categorie);
+        //$pagination_number=5;
+        if ($search_value3){
+             $produits = Produit::where("libelle", "like", "%".$search_value3. "%")
+             ->orWhere("libelle", $search_value3)
+             ->orWhere("prix", $search_value3)
+             ->orWhere("qte_stock", $search_value3)
+             ->orWhere("marque", $search_value3)
+             ->paginate($pagination_number);
+        }
 
-        $client=$request->input("cilent_id");
         $vendeur=Auth::user();
-        $produits_ids=$request->input(("produits_ids"));
-        $qte_ligne=$request->input("qte_ligne");
+        $produit_ids=$request->input("produit_ids");
+        $quantites=$request->input("quantites");
+        $montants=$request->input("montants");
 
-        Commande::create([
-            "client"=>$client,
+        //dd($request->all());
+
+        $commande=Commande::create([
+            "client_id" => $request->input("client_id"),
             "vendeur_id"=>$vendeur->id,
-        ]);
 
-        for($i=0;$i<count($produits_ids);$i++){
-            $produit=$produits_ids[$i];
+
+
+        ]);
+        $montant_total=0;
+        //dd($produit_ids);
+
+        for($i=0;$i<count($produit_ids);$i++){
+            $produit=$produit_ids[$i];
             $quantite=$quantites[$i];
+            $montant=$montants[$i];
+            $montant_total+=$montants[$i];
 
             LigneCommande::create([
-                "quantite"=>$quantite,
+                "qte_ligne"=>$quantite,
                 "prod_id"=>$produit,
+                "montant"=>$montant,
+                "cmd_id"=>$commande->id,
 
             ]);
 
         }
+        $commande->montant_total=$montant_total;
+        $commande->save();
+        return redirect()->route('commandes.index');
+
     }
 
     /**
@@ -89,8 +128,12 @@ class CommandeController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(Commande $commande)
+
     {
-        return view('commandes.edit',compact('commande'));
+        $produit=Produit::all();
+        $client=Client::all();
+
+        return view('commandes.edit',compact('commande','client','produit'));
 
     }
 
@@ -99,7 +142,30 @@ class CommandeController extends Controller
      */
     public function update(UpdateCommandeRequest $request, Commande $commande)
     {
-        $commande->update($request);
+        $vendeur=Auth::user();
+        $produit_ids=$request->input("produit_ids");
+        $quantites=$request->input("quantites");
+        $montants=$request->input("montants");
+
+
+        $commande->update($request->all());
+        for($i=0;$i<count($produit_ids);$i++){
+            $produit=$produit_ids[$i];
+            $quantite=$quantites[$i];
+            $montant=$montants[$i];
+            $montant_total+=$montants[$i];
+
+            LigneCommande::create([
+                "qte_ligne"=>$quantite,
+                "prod_id"=>$produit,
+                "montant"=>$montant,
+                "cmd_id"=>$commande->id,
+
+            ]);
+
+        }
+        $commande->montant_total=$montant_total;
+        $commande->save();
         return redirect()->route('commandes.edit');
     }
 
@@ -118,4 +184,5 @@ class CommandeController extends Controller
              'commande'=>$commande,
          ])->download('facture.pdf');
      }
+
 }

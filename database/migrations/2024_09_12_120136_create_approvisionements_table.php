@@ -17,7 +17,9 @@ return new class extends Migration
             $table->integer('gerant_id');
             $table->foreign('gerant_id')->references('id')->on('users');
             $table->integer('fournisseur_id');
-            $table->foreign('fournisseur_id')->references('id')->on('fournisseurs');
+            $table->foreign('fournisseur_id')->references('id')->on('fournisseurs')->onDelete('cascade');
+            $table->date('date_livraison')->default('now');
+
             $table->timestamps();
         });
     }

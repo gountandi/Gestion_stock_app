@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -17,7 +18,7 @@
     </head>
     <body class="font-sans antialiased dark:bg-black dark:text-white/50" >
         <div class="contener">
-            <img src="public/storage/img.jpeg" alt="" width="1000rm" height="1000rm" >
+
             <div class="contener1">
 
                 @if (Route::has('login'))
@@ -53,6 +54,6 @@
             </div>
 
         </div>
-
+        <img src={{ asset("assets/img/create-account-office-dark.jpeg") }} alt="" width="2000rm" height="2000rm" >
     </body>
 </html>

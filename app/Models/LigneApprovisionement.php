@@ -11,10 +11,11 @@ class LigneApprovisionement extends Model
     use HasFactory;
     protected $fillable = [
         'qte_acheter',
-        'date_livraison',
         'prod_id',
         'apprivisionement_id',
     ];
+
+    protected $table = "lignes_approvisionements";
 
     public function approvisionement(): BelongsTo
     {

@@ -7,6 +7,8 @@ use App\Http\Requests\UpdateProduitRequest;
 use Illuminate\Http\Request;
 use App\Models\Produit;
 use App\Models\Categorie;
+use Illuminate\Support\Facades\DB;
+
 
 
 class ProduitController extends Controller
@@ -17,14 +19,16 @@ class ProduitController extends Controller
     public function index(Request $request)
     {
         $search_value=$request->input("search");
+        //$search_value="non";
+
+
+        $categories_ids=Categorie::where('nom',$search_value)->pluck('id');
+        //dd($categories_ids);
         $pagination_number=5;
         if ($search_value){
-             $produits = Produit::where("categorie", "like", "%".$search_value. "%")
-             ->orWhere("libelle", $search_value)
-             ->orWhere("prix", $search_value)
-             ->orWhere("qte_stock", $search_value)
-             ->orWhere("marque", $search_value)
+             $produits = Produit::whereIn("categorie_id",$categories_ids)
              ->paginate($pagination_number);
+
         }
         else{
              $produits = Produit::paginate($pagination_number);

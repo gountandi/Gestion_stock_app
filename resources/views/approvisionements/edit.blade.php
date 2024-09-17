@@ -1,4 +1,5 @@
-<x-app-layout>
+@extends('layouts.base')
+@section('content')
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Approvisionement') }}
@@ -20,10 +21,15 @@
                     <div class="space-y-6">
                         <div class="flex space-x-3 items-center">
                             <div class="space-y-2 w-1/3">
-                                <label for="fournisseur">Founisseur</label>
-                                <input type="text" name="fournisseur" id="fournisseur" class="border-gray-300 rounded-md w-full">
-                            </div>
+                                <label for="">Fournisseur</label>
+                                <select name="fournisseur_id" id="fournisseur_id" class="border-gray-300 rounded-md w-full">
+                                <option value="Sélectioné"></option>
+                                @foreach($fournisseur as $four)
+                                <option value="{{$four->id}}">{{$four->libelle}}</option>
+                                @endforeach
+                                </select>
 
+                            </div>
                         </div>
                         <div class="flex space-x-3 items-center">
                             <div class="space-y-2 w-1/3">
@@ -37,12 +43,12 @@
 
                             </div>
                             <div class="space-y-2 w-1/3">
-                                <label for="qte_approvisionner">*Quantite</label>
-                                <input type="number" name="qte_approvisionner" id="quantite_id" class="border-gray-300 rounded-md w-full">
+                                <label for="qte_approvisionner">Quantite</label>
+                                <input type="number" name="quantiter_id" id="quantite_id" class="border-gray-300 rounded-md w-full" min="1">
                             </div>
                             <div class="space-y-2 w-1/3">
-                                <label for="date_livraison">*Quantite</label>
-                                <input type="date" name="date_livraison" id="quantite_id" class="border-gray-300 rounded-md w-full">
+                                <label for="date_livraison">Prix_achat</label>
+                                <input type="number" name="prix_achat_id" id="prix_achat_id" class="border-gray-300 rounded-md w-full">
                             </div>
                             <div>
                                 <button class="mt-6 bg-blue-600 hover:bg-blue-500 text-white text-sm px-3 py-2 rounded-md" type="button" id="btn_ajouter">+</button>
@@ -65,10 +71,11 @@
                         </div>
                     </div>
                 </form>
+                @if($errors->any())
+                {{ implode('', $errors->all('<div>:message</div>')) }}
                </div>
             </div>
         </div>
     </div>
-</x-app-layout>
-
+@endsection
 

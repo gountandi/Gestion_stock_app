@@ -5,6 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
+use DB;
+use Hash;
+use Illuminate\Support\Arr;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use App\Models\Client;
+
 
 class UserController extends Controller
 {
@@ -13,15 +22,24 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $pagination_number=5;
+
+        $users = User::paginate($pagination_number);
+
+
+        return view('users.index', compact('user'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
+
     {
-        //
+
+        $roles = Role::pluck('name','name')->all();
+
+        return view('users.create',compact('roles'));
     }
 
     /**
@@ -29,7 +47,20 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        //
+        $client = Client::create([
+            'nom' => $request->input('nom'),
+            'tel' => $request->input('telephonne'),
+        ]);
+
+        $user=User::create([
+            'email' => $request->input('email'),
+            'mot_de_passe' => bcrypt($request->input('mot_de_passe')),
+            'personne_id' => $client->id,
+        ]);
+
+        $user->assignRole($request->input('roles'));
+
+        return redirect()->route('users.index');
     }
 
     /**
@@ -37,7 +68,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return view('users.show', compact('user'));
     }
 
     /**
@@ -45,7 +76,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        $roles = Role::all();
+        $user->load('personne');
+        return view('users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -53,7 +86,20 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $user->client->update([
+            'nom' => $request->input('nom'),
+            'tel' => $request->input('telephone'),
+        ]);
+
+        // Mettre à jour l'utilisateur
+        $user->update([
+            'email' => $request->input('emai'),
+            'mot_de_passe' => $request->mot_de_passe ? bcrypt($request->mot_de_passe) : $user->mot_de_passe,
+            'role_id' => $request->role_id,
+        ]);
+        $user->assignRole($request->input('roles'));
+        return redirect()->route('users.index');
+
     }
 
     /**
@@ -61,6 +107,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return redirect()->route('users.index');
     }
 }

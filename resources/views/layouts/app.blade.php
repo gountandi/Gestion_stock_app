@@ -13,9 +13,6 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-        <script src={{ asset('js/commande.js') }} async></script>
-        <script src={{ asset('js/approvisionement.js') }} async></script>
-
 
         <!-- Styles -->
         @livewireStyles

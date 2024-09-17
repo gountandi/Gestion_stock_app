@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,14 +10,10 @@ class Client extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'nom',
-        'tel',
-    ];
-/*
-    public function user(): BelongsTo
+    protected $fillable = ['nom', 'tel'];
+
+    public function personne(): HasOne
     {
-        return $this->belongsTo(User::class);
+        return $this->hasOne(Personne::class);
     }
-        */
 }

@@ -15,13 +15,17 @@ class Commande extends Model
     protected $fillable = [
         'date_cmd',
         'montant_total',
-        'personne_id',
+        'client_id',
         'vendeur_id',
     ];
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'vendeur_id');
+    }
+    public function client(): BelongsTo
+    {
+        return $this->belongsTo(Client::class, 'client_id');
     }
 
     public function lignescommandes(): HasMany {
@@ -33,7 +37,7 @@ class Commande extends Model
     protected function casts(): array
     {
         return [
-            'date' => 'datetime',
+            'date_cmd' => 'datetime',
         ];
     }
 

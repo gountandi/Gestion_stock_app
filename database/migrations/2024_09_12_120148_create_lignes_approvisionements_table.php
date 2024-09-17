@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('lignes_approvisionements', function (Blueprint $table) {
             $table->id();
-            $table->date('date_livraison');
             $table->integer('qte_approvisionner');
             $table->integer('prod_id');
             $table->foreign('prod_id')->references('id')->on('produits');
